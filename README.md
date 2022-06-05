@@ -22,3 +22,13 @@ docker-compose run --rm app sh -c "pytest"
 docker-compose run --rm app sh -c 'ptw'
 
 docker-compose run --rm app sh -c 'ptw --onpass "growlnotify -m \"All tests passed!\"" --onfail "growlnotify -m \"Tests failed\""'
+
+
+## Using the ORM
+
+Define models -> generate migration files -> setup database -> store data
+
+Each model maps to a table. Models contain a name, fields, other metadata, custom python logic.
+
+python manage.py makemigrations
+python manage.py migrate
