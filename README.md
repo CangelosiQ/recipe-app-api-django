@@ -30,5 +30,8 @@ Define models -> generate migration files -> setup database -> store data
 
 Each model maps to a table. Models contain a name, fields, other metadata, custom python logic.
 
-python manage.py makemigrations
-python manage.py migrate
+docker-compose run --rm app sh -c 'python manage.py makemigrations'
+docker-compose run --rm app sh -c 'python manage.py wait_for_db && python manage.py migrate'
+
+## Create Super User
+docker-compose run --rm app sh -c "python manage.py createsuperuser"
