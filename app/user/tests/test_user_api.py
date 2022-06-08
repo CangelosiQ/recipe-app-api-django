@@ -10,11 +10,6 @@ TOKEN_URL = reverse("user:token")
 ME_URL = reverse("user:me")
 
 
-def create_user(**params):
-    """Create and return a new user"""
-    return get_user_model().objects.create_user(**params)
-
-
 @pytest.mark.django_db
 def test_create_user_success(api_client):
     """Test creating a user is successful."""
@@ -32,7 +27,7 @@ def test_create_user_success(api_client):
 
 
 @pytest.mark.django_db
-def test_user_with_email_exists_error(api_client):
+def test_user_with_email_exists_error(api_client, create_user):
     """Test error returned if user with email exists."""
     payload = {
         "email": "test@example.com",
@@ -58,7 +53,7 @@ def test_password_too_short_error(api_client):
 
 
 @pytest.mark.django_db
-def test_create_token_for_user(api_client):
+def test_create_token_for_user(api_client, create_user):
     """Test generates token for valid credentials."""
     user_details = {
         "email": "newtest@example.com",

@@ -45,3 +45,9 @@ def authenticated_user(api_client):
     )
     api_client.force_authenticate(user=user)
     return user
+
+
+@pytest.fixture
+def create_user():
+    """Create and return a new user"""
+    return lambda **params: get_user_model().objects.create_user(**params)
