@@ -17,6 +17,7 @@ docker-compose run --rm app sh -c "python manage.py startapp core"
 
 
 docker-compose run --rm app sh -c "pytest"
+docker-compose run --rm app sh -c "flake8 && pytest"
 
 
 docker-compose run --rm app sh -c 'ptw'

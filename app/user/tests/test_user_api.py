@@ -3,7 +3,7 @@ import pytest
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework import status
-
+from conftest import create_user
 
 CREATE_USER_URL = reverse("user:create")
 TOKEN_URL = reverse("user:token")
@@ -27,7 +27,7 @@ def test_create_user_success(api_client):
 
 
 @pytest.mark.django_db
-def test_user_with_email_exists_error(api_client, create_user):
+def test_user_with_email_exists_error(api_client):
     """Test error returned if user with email exists."""
     payload = {
         "email": "test@example.com",
@@ -53,7 +53,7 @@ def test_password_too_short_error(api_client):
 
 
 @pytest.mark.django_db
-def test_create_token_for_user(api_client, create_user):
+def test_create_token_for_user(api_client):
     """Test generates token for valid credentials."""
     user_details = {
         "email": "newtest@example.com",

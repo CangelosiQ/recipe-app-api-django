@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 import pytest
 
 from core import models
+from conftest import create_user
 
 
 @pytest.mark.django_db
@@ -65,3 +66,30 @@ def test_create_recipe():
     )
 
     assert str(recipe) == recipe.title
+
+
+@pytest.mark.django_db
+def test_create_tag():
+    """Test creating a tag is successful."""
+    user = create_user(email="user@example.com", password="pass123")
+    tag = models.Tag.objects.create(user=user, name="Tag1")
+
+    assert str(tag) == tag.name
+
+
+@pytest.mark.django_db
+def test_create_ingredient():
+    """Test creating a ingredient is successful."""
+    user = create_user(email="user@example.com", password="pass123")
+    ingredient = models.Ingredient.objects.create(user=user, name="ingredient1")
+
+    assert str(ingredient) == ingredient.name
+
+
+def test_recipe_file_name_uuid(mocker):
+    """Test generating image path."""
+    uuid = "test-uuid"
+    mocker.patch("core.models.uuid.uuid4", return_value=uuid)
+    file_path = models.recipe_image_file_path(None, "example.jpg")
+
+    assert file_path == f"uploads/recipe/{uuid}.jpg"
