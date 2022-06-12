@@ -36,3 +36,6 @@ docker-compose run --rm app sh -c 'python manage.py wait_for_db && python manage
 
 ## Create Super User
 docker-compose run --rm app sh -c "python manage.py createsuperuser"
+
+## Check the logs
+docker-compose -f docker-compose-deploy.yml logs
